@@ -98,6 +98,7 @@ invoker.animate = function() {
   else {
     var landscapeOrientation = window.innerWidth/window.innerHeight > 1;
     let vx=0, vy=0, x=0, y=0;
+    let movement = 0;
 		if (landscapeOrientation) {
 			vx = vx + accelY;
 			vy = vy + accelX;
