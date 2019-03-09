@@ -48,8 +48,8 @@ invoker.motion = function (ev){
     + ev.accelerationIncludingGravity.z
   );
 
-  accelX = ev.accelerationIncludingGravity.x;
-  accelY = ev.accelerationIncludingGravity.y;
+  accelX = ev.accelerationIncludingGravity.x * 5;
+  accelY = ev.accelerationIncludingGravity.y * 5;
 }
 
 invoker.animate = function() {
@@ -96,8 +96,29 @@ invoker.animate = function() {
   }
   // IF YOU ARE ON MOBILE / SOMETHING THAT HAS AN ACCELEROMETER
   else {
-    inertia += accelY / 10;
-    creepPosition += accelY / 10 + inertia;
+    var landscapeOrientation = window.innerWidth/window.innerHeight > 1;
+    let vx=0, vy=0, x=0, y=0;
+		if (landscapeOrientation) {
+			vx = vx + accelY;
+			vy = vy + accelX;
+		} else {
+			vy = vy - accelY;
+			vx = vx + accelX;
+		}
+		vx = vx * 0.98;
+		vy = vy * 0.98;
+		y = parseInt(y + vy / 50);
+		x = parseInt(x + vx / 50);
+
+		// sphere.style.top = y;
+		creepPosition = x;
+
+    // normalizedY = accelY / 10;
+    // if (normalizedY < 1) {
+    //   normalizedY = 0;
+    // }
+    // inertia += normalizedY;
+    // creepPosition += normalizedY + inertia;
   }
 
   if (creepPosition + creep.width >= 360) {
