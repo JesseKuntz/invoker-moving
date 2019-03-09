@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+  <title>Invoker</title>
+  <link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+<body cz-shortcut-listen="true">
+  <div id="mainWindow">
+    <h3 class="titleBar">Invoker Simulator</h3>
+
+    <div id="controls">
+      <div id="sliderdiv">
+        <p id="slidertitle">Spin Speed</p>
+        <input id="slider1" type="range" min="0" max="100" value="5">
+        <p id="pointcountpar">Speed: <span id="pointcount">5</span></p>
+        <p id="timecountpar">Time: <span id="timecount">5</span></p>
+      </div>
+      <div id="tiltdiv">
+        <p id="tilttitle">Tilt</p>
+        <input id="tilt1" type="range" min="-15" max="15" value="0">
+        <p id="tiltcountpar">Tilt: <span id="tiltcount">0</span></p>
+      </div>
+      <button id="gobutton" type="submit">Go</button>
+      <button id="stopbutton" type="submit">Stop</button>
+      <button id="stepbutton" type="submit">Step</button>
+      <button id="sunstrikebutton" type="submit">Sun Strike</button>
+    </div>
+
+    <canvas id="canvas1" width="720" height="540">
+      <p>Your browser doesn't support the HTML5 canvas element.</p>
+    </canvas>
+  </div>
+
+  <!-- javascript, loaded at the end to make the page appear faster -->
+  <script type="text/javascript" src="./invoker_files/jquery-1.4.4.min.js"></script>
+  <script type="text/javascript" src="./invoker_files/sylvester.js"></script>
+  <script type="text/javascript" src="./script.js"></script>
+
+
+</body></html>
