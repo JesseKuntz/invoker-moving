@@ -111,6 +111,7 @@ invoker.animate = function() {
     // x = parseInt(x + vx / 50);
 
     // creepPosition = x;
+    var landscapeOrientation = window.innerWidth/window.innerHeight > 1;
     let movement = 0;
     if (landscapeOrientation) {
       inertia += accelY / 10;
