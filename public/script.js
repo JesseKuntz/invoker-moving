@@ -6,7 +6,7 @@
 
 var invoker = { }
 var hero, wex, lane, quas, exort, creep, sunstrike;
-var intervalID, time=0, step=5, tilt=0, lastTilt=0, creepPosition=0, inertia=0, isStruck=false, creepAlive=true;
+var intervalID, time=0, step=5, tilt=0, lastTilt=0, creepPosition=0, inertia=0, isStruck=false, creepAlive=true, isMobile=false;
 
 $(document).ready(function () { invoker.init(); });
 
@@ -32,9 +32,9 @@ invoker.init = function () {
 
   if( !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ) {
     $('#tilt1').bind('change', invoker.tilt);
+  } else {
+    isMobile = true;
   }
-
-
 
   invoker.loadImages();
   lane.onload = function() { invoker.animate(); }
@@ -84,8 +84,18 @@ invoker.animate = function() {
 
   // Creep
   invoker.cx.save();
-  inertia += tilt / 12;
-  creepPosition += tilt + inertia;
+
+  // IF YOU ARE ON DESKTOP
+  if (isMobile == false) {
+    inertia += tilt / 12;
+    creepPosition += tilt + inertia;
+  }
+  // IF YOU ARE ON MOBILE / SOMETHING THAT HAS AN ACCELEROMETER
+  else {
+
+  }
+
+
   if (creepPosition + creep.width >= 360) {
     invoker.cx.drawImage(creep, 360 - creep.width, 270 - creep.height);
     creepPosition = 360 - creep.width;
@@ -99,6 +109,7 @@ invoker.animate = function() {
   else {
     invoker.cx.drawImage(creep, creepPosition, 270 - creep.height);
   }
+
   invoker.cx.restore();
 
   // Sunstrike
