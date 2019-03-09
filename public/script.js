@@ -6,7 +6,8 @@
 
 var invoker = { }
 var hero, wex, lane, quas, exort, creep, sunstrike;
-var intervalID, time=0, step=5, tilt=0, lastTilt=0, creepPosition=0, inertia=0, isStruck=false, creepAlive=true, isMobile=false;
+var intervalID, time=0, step=5, tilt=0, lastTilt=0, accelX, accelY,
+    creepPosition=0, inertia=0, isStruck=false, creepAlive=true, isMobile=false;
 
 $(document).ready(function () { invoker.init(); });
 
@@ -25,7 +26,7 @@ invoker.init = function () {
   $('#slider1').bind('change', invoker.slider);
 
   if(window.DeviceMotionEvent){
-    window.addEventListener("devicemotion", motion, false);
+    window.addEventListener("devicemotion", invoker.motion, false);
   } else {
     console.log("DeviceMotionEvent is not supported");
   }
@@ -40,12 +41,15 @@ invoker.init = function () {
   lane.onload = function() { invoker.animate(); }
 }
 
-function motion(event){
+invoker.motion = function (ev){
   console.log("Accelerometer: "
-    + event.accelerationIncludingGravity.x + ", "
-    + event.accelerationIncludingGravity.y + ", "
-    + event.accelerationIncludingGravity.z
+    + ev.accelerationIncludingGravity.x + ", "
+    + ev.accelerationIncludingGravity.y + ", "
+    + ev.accelerationIncludingGravity.z
   );
+
+  accelX = ev.accelerationIncludingGravity.x;
+  accelY = ev.accelerationIncludingGravity.y;
 }
 
 invoker.animate = function() {
@@ -87,14 +91,14 @@ invoker.animate = function() {
 
   // IF YOU ARE ON DESKTOP
   if (isMobile == false) {
-    inertia += tilt / 12;
+    inertia += tilt / 30;
     creepPosition += tilt + inertia;
   }
   // IF YOU ARE ON MOBILE / SOMETHING THAT HAS AN ACCELEROMETER
   else {
-
+    inertia += accelY / 10;
+    creepPosition += accelY / 10 + inertia;
   }
-
 
   if (creepPosition + creep.width >= 360) {
     invoker.cx.drawImage(creep, 360 - creep.width, 270 - creep.height);
