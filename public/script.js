@@ -111,16 +111,17 @@ invoker.animate = function() {
     // x = parseInt(x + vx / 50);
 
     // creepPosition = x;
+    let movement = 0;
+    if (landscapeOrientation) {
+      inertia += accelY / 10;
+      movement = accelY;
+    }
+    else {
+      inertia += accelX / 10;
+      movement = accelX;
+    }
 
-    inertia += accelY / 10;
-    creepPosition += accelY / 10 + inertia;
-
-    // normalizedY = accelY / 10;
-    // if (normalizedY < 1) {
-    //   normalizedY = 0;
-    // }
-    // inertia += normalizedY;
-    // creepPosition += normalizedY + inertia;
+    creepPosition += movement / 10 + inertia;
   }
 
   if (creepPosition + creep.width >= 360) {
