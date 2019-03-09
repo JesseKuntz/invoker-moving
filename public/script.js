@@ -111,7 +111,7 @@ invoker.animate = function() {
 		x = parseInt(x + vx / 50);
 
 		// sphere.style.top = y;
-		creepPosition = y;
+		creepPosition = x * -1;
 
     // normalizedY = accelY / 10;
     // if (normalizedY < 1) {
