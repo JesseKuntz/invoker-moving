@@ -23,10 +23,29 @@ invoker.init = function () {
   $('#stepbutton').bind('click', invoker.step);
   $('#sunstrikebutton').bind('click', invoker.sunstrike);
   $('#slider1').bind('change', invoker.slider);
-  $('#tilt1').bind('change', invoker.tilt);
+
+  if(window.DeviceMotionEvent){
+    window.addEventListener("devicemotion", motion, false);
+  } else {
+    console.log("DeviceMotionEvent is not supported");
+  }
+
+  if( !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) ) {
+    $('#tilt1').bind('change', invoker.tilt);
+  }
+
+
 
   invoker.loadImages();
   lane.onload = function() { invoker.animate(); }
+}
+
+function motion(event){
+  console.log("Accelerometer: "
+    + event.accelerationIncludingGravity.x + ", "
+    + event.accelerationIncludingGravity.y + ", "
+    + event.accelerationIncludingGravity.z
+  );
 }
 
 invoker.animate = function() {
